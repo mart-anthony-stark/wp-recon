@@ -1,4 +1,4 @@
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass, asdict, field
 from typing import List, Dict, Optional
 import json
 
@@ -6,9 +6,11 @@ import json
 class Finding:
     category: str
     name: str
-    severity: str  # info, low, medium, high (informational only)
+    severity: str
     description: str
     evidence: Optional[str] = None
+    mitigation: Optional[str] = None
+    references: List[str] = field(default_factory=list)
 
     def to_dict(self):
         return asdict(self)
