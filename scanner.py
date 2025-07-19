@@ -5,7 +5,6 @@ import socket
 from config import settings
 from utils import print_logo
 from typing import List, Dict
-from urllib.parse import urlparse
 from models import Optional, Finding, Report
 from datetime import datetime, timezone
 from urllib.parse import urljoin, urlparse

@@ -23,7 +23,7 @@ def print_human_report(report: Report):
             if f.mitigation:
                 print(f"        Mitigation: {f.mitigation}")
             if f.references:
-                print(f"        References:")
+                print("        References:")
                 for r in f.references:
                     print(f"          * {r}")
     print("\nSummary counts:")
