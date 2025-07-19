@@ -18,7 +18,14 @@ def print_human_report(report: Report):
         for f in items:
             desc = shorten(f.description, width=100, placeholder='…')
             ev = f" [evidence: {f.evidence}]" if f.evidence else ''
-            print(f"    - {f.category}: {f.name} :: {desc}{ev}")
+            print(f"    - {f.category}: {f.name}{ev}")
+            print(f"        Desc: {desc}")
+            if f.mitigation:
+                print(f"        Mitigation: {f.mitigation}")
+            if f.references:
+                print(f"        References:")
+                for r in f.references:
+                    print(f"          * {r}")
     print("\nSummary counts:")
     for sev,count in report.summary.items():
         print(f"  {sev}: {count}")
@@ -33,6 +40,6 @@ __        ______  ____
    \_/\_/  |_|   |_| \_\___|\___\___/|_| |_|
 
         Passive WordPress Security Scanner
-               Created by Mart Salazar
+            Created by Mart Salazar
     """
     print(logo_ascii)

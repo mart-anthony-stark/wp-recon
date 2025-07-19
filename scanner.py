@@ -10,6 +10,8 @@ from models import Optional, Finding, Report
 from datetime import datetime, timezone
 from urllib.parse import urljoin, urlparse
 
+from knowledge import MITIGATION_DATA
+
 # external libs
 import requests
 from bs4 import BeautifulSoup
@@ -59,8 +61,17 @@ class PassiveScanner:
         except requests.RequestException:
             return None
 
-    def _add_finding(self, category: str, name: str, severity: str, description: str, evidence: Optional[str] = None):
-        self.findings.append(Finding(category, name, severity, description, evidence ))
+    def _add_finding(self, category: str, name: str, severity: str,
+                    description: str, evidence: Optional[str] = None):
+        data = MITIGATION_DATA.get(name, {})
+        mitigation = data.get("mitigation")
+        references = data.get("references", [])
+        self.findings.append(
+            Finding(category, name, severity, description,
+                    evidence=evidence,
+                    mitigation=mitigation,
+                    references=references)
+        )
 
      # --- Checks / Scans for vulnerabilities ---
     def parse_homepage(self):
